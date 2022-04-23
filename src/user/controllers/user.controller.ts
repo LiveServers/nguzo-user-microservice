@@ -18,4 +18,18 @@ export class UserController {
     return this.userService.signUp(obj.userModelDto,obj.clientIp);
   }
 
+  @MessagePattern({cmd:'verify'})
+  getToken(obj){
+    return this.userService.getToken(obj.id,obj.token);
+  }
+
+  @MessagePattern({cmd: 'logout'})
+  logOut(id){
+    return this.userService.logOut(id);
+  }
+
+  @MessagePattern({cmd:'verify-email'})
+  validateEmail(email:string){
+    return this.userService.checkEmailBeforeResetingPassword(email);
+  }
 }

@@ -20,7 +20,7 @@ export class AuthService {
       secret:process.env.ACCESS_TOKEN_SECRET,
       expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_TIME
     });
-    const cookie = `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.ACCESS_TOKEN_EXPIRATION_TIME} Secure=${process.env.NODE_ENV === "production"}`;
+    const cookie = `Authentication=${token}; HttpOnly; Path=/; max-age=${process.env.ACCESS_TOKEN_EXPIRATION_TIME}; Secure=${process.env.NODE_ENV === "production"}`;
     return {
         cookie,
         token

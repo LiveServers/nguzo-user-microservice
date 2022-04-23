@@ -30,6 +30,12 @@ export class UserRepository {
     return this.userModel.create(userModelDto);
   }
 
+  async findById(id):Promise<any>{
+    return this.userModel.findOne({_id:id},{
+      _v:0
+    }).exec();
+  }
+
   async findByMsisdnAndEmail(msisdn:string,email:string):Promise<UserRes | null>{
     const [msisdnRes,emailRes] = await Promise.all([
         this.userModel.findOne({msisdn},{
@@ -51,7 +57,11 @@ export class UserRepository {
     }).exec();
   }
 
-  async updateUserRefreshToken(refreshToken:string,userId:string):Promise<User | null>{
+  async updateUserToken(refreshToken:string,userId:string):Promise<User | null>{
     return this.userModel.findOneAndUpdate({_id:userId},{hashedRefreshToken:refreshToken},{new:true}).exec();
+  }
+
+  async deleteToken(id:string):Promise<User | null>{
+    return this.userModel.findOneAndUpdate({_id:id},{hashedRefreshToken:""},{new:true}).exec();
   }
 }
